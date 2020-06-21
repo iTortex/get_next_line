@@ -6,16 +6,12 @@
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 22:24:29 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/09 17:05:25 by amarcele         ###   ########.fr       */
+/*   Updated: 2020/06/21 19:11:50 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE
 # define GET_NEXT_LINE
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
-# endif
 
 # include <stdlib.h>
 # include <unistd.h>
