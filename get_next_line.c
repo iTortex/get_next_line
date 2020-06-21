@@ -5,19 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 12:59:44 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/21 19:15:19 by amarcele         ###   ########.fr       */
+/*   Created: 2020/06/21 22:41:11 by amarcele          #+#    #+#             */
+/*   Updated: 2020/06/22 00:59:53 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	char	*str;
+	int			i;
+	char		*str;
 
 	if (!s1 || !s2)
 		return (NULL);
@@ -30,11 +28,11 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t			ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int i;
-	int y;
-	int b;
+	int			i;
+	int			y;
+	int			b;
 
 	i = ft_strlen(dst);
 	y = ft_strlen(src);
@@ -55,9 +53,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		return (y + size);
 }
 
-char *chekost(char *ost, char **line)
+static char		*chekost(char *ost, char **line)
 {
-	char *stop;
+	char		*stop;
 
 	stop = NULL;
 	if (!line)
@@ -82,23 +80,31 @@ char *chekost(char *ost, char **line)
 	return (stop);
 }
 
-int	get_next_line(int fd, char **line)
+static int		musthavecheck(char *str, int fd, char **line)
 {
-	char *str;
-	char *stop;
-	int chekbytes;
-	char *tofree;
-	static char *ost;
-
-	stop = chekost(ost, line);
-	str = malloc(BUFFER_SIZE * (sizeof(char)) + 1);
 	if (!str || BUFFER_SIZE < 1 || fd < 1 || read(fd, str, 0) != 0 || !line)
 	{
 		free(str);
 		return (-1);
 	}
-	while(!stop && (chekbytes = read(fd, str, BUFFER_SIZE)) > 0)
-	{	
+	else
+		return (0);
+}
+
+int				get_next_line(int fd, char **line)
+{
+	char		*str;
+	char		*stop;
+	ssize_t		chekbytes;
+	char		*tofree;
+	static char	*ost;
+
+	stop = chekost(ost, line);
+	str = malloc((1 + BUFFER_SIZE) * sizeof(char));
+	if (musthavecheck(str, fd, line) == -1)
+		return (-1);
+	while (!stop && (chekbytes = read(fd, str, BUFFER_SIZE)) > 0)
+	{
 		str[chekbytes] = '\0';
 		if ((stop = ft_strchr(str, '\n')))
 		{
@@ -109,8 +115,5 @@ int	get_next_line(int fd, char **line)
 		*line = ft_strjoin(*line, str);
 		free(tofree);
 	}
-	free(str);
-	if (stop)
-		return (1);
-	return (0);
+	return (stop) ? 1 : 0;
 }

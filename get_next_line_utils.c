@@ -6,15 +6,15 @@
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 15:18:30 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/19 20:03:01 by amarcele         ###   ########.fr       */
+/*   Updated: 2020/06/21 22:40:24 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t		ft_strlen(const char *str)
+size_t			ft_strlen(const char *str)
 {
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -22,9 +22,9 @@ size_t		ft_strlen(const char *str)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t			ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int	i;
+	int			i;
 
 	if (dst == src)
 		return (0);
@@ -39,9 +39,9 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (i);
 }
 
-char	*ft_strchr(const char *str, int ch)
+char			*ft_strchr(const char *str, int ch)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (str[i] != ch && str[i] != '\0')
@@ -62,10 +62,10 @@ char			*ft_strdup(const char *s)
 	return (copy);
 }
 
-void		*ft_calloc(size_t nmemb, size_t size)
+void			*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*mem;
-	int		i;
+	char		*mem;
+	int			i;
 
 	i = 0;
 	if (nmemb == 0 || size == 0)
