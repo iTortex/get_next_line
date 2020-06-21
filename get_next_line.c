@@ -6,7 +6,7 @@
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 22:41:11 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/22 00:59:53 by amarcele         ###   ########.fr       */
+/*   Updated: 2020/06/22 01:47:53 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ int				get_next_line(int fd, char **line)
 		*line = ft_strjoin(*line, str);
 		free(tofree);
 	}
+	free(str);
 	return (stop) ? 1 : 0;
 }
