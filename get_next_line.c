@@ -6,7 +6,7 @@
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:59:44 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/19 19:37:18 by amarcele         ###   ########.fr       */
+/*   Updated: 2020/06/21 18:43:56 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char *chekost(char *ost, char **line)
 	char *stop;
 
 	stop = NULL;
+	if (!line)
+		return (stop);
 	if (ost)
 	{
 		if ((stop = ft_strchr(ost, '\n')))
@@ -76,7 +78,7 @@ char *chekost(char *ost, char **line)
 		}
 	}
 	else
-		*line = ft_strdup("");
+		*line = ft_calloc(0, 0);
 	return (stop);
 }
 
@@ -89,17 +91,20 @@ int	get_next_line(int fd, char **line)
 	static char *ost;
 
 	stop = chekost(ost, line);
-	str = malloc(BUFFER_SIZE * (sizeof(line)) + 1);
+	str = malloc(BUFFER_SIZE * (sizeof(char)) + 1);
+	if (!str || BUFFER_SIZE < 1 || fd < 1 || read(fd, str, 0) != 0 || !line)
+	{
+		free(str);
+		return (-1);
+	}
 	while(!stop && (chekbytes = read(fd, str, BUFFER_SIZE)) > 0)
 	{	
 		str[chekbytes] = '\0';
 		if ((stop = ft_strchr(str, '\n')))
-			{
-				*stop = '\0';
-				ost = ft_strdup(++stop);
-				if (!(ost) || !(line))
-					return (-1);
-			}
+		{
+			*stop = '\0';
+			ost = ft_strdup(++stop);
+		}
 		tofree = *line;
 		*line = ft_strjoin(*line, str);
 		free(tofree);
