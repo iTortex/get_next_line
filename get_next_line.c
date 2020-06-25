@@ -6,7 +6,7 @@
 /*   By: amarcele <amarcele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 22:41:11 by amarcele          #+#    #+#             */
-/*   Updated: 2020/06/22 01:47:53 by amarcele         ###   ########.fr       */
+/*   Updated: 2020/06/26 00:13:32 by amarcele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char		*chekost(char *ost, char **line)
 
 static int		musthavecheck(char *str, int fd, char **line)
 {
-	if (!str || BUFFER_SIZE < 1 || fd < 1 || read(fd, str, 0) != 0 || !line)
+	if (!str || BUFFER_SIZE < 1 || fd < 0 || read(fd, str, 0) != 0 || !line)
 	{
 		free(str);
 		return (-1);
